@@ -4,7 +4,13 @@ import { verify } from 'jsonwebtoken';
 import AppError from '@shared/errors/AppError';
 import authConfig from '@config/auth';
 
-export default function isAuthenticated(
+interface ITokenPayload {
+  iat: number;
+  exp: number;
+  sub: string;
+}
+
+export default function CompanyIsAuthenticated(
   request: Request,
   response: Response,
   next: NextFunction,
@@ -18,7 +24,13 @@ export default function isAuthenticated(
   const [, token] = authHeader.split(' ');
 
   try {
-    const decodeToken = verify(token, authConfig.jwt.secret);
+    const decodeToken = verify(token, authConfig.Companiesjwt.secret);
+
+    const { sub } = decodeToken as ITokenPayload;
+
+    request.company = {
+      id: sub,
+    };
 
     return next();
   } catch {

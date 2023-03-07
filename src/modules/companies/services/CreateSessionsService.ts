@@ -34,9 +34,9 @@ class CreateSessionsService {
       throw new AppError('Incorrect email & password combination.', 401);
     }
 
-    const token = sign({}, authConfig.jwt.secret, {
+    const token = sign({}, authConfig.Companiesjwt.secret, {
       subject: company.id,
-      expiresIn: authConfig.jwt.expiresIn,
+      expiresIn: authConfig.Companiesjwt.expiresIn,
     });
 
     return {
