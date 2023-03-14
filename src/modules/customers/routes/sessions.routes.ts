@@ -3,10 +3,10 @@ import { celebrate, Joi, Segments } from 'celebrate';
 
 import SessionsController from '../controllers/SessionsController';
 
-const companySessionsRouter = Router();
+const customerSessionsRouter = Router();
 const sessionsController = new SessionsController();
 
-companySessionsRouter.post(
+customerSessionsRouter.post(
   '/',
   celebrate({
     [Segments.BODY]: {
@@ -17,4 +17,4 @@ companySessionsRouter.post(
   sessionsController.create,
 );
 
-export default companySessionsRouter;
+export default customerSessionsRouter;

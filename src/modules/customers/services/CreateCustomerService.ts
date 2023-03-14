@@ -22,12 +22,13 @@ class CreateCustomerService {
     const customersRepository = getCustomRepository(CustomersReposiroty);
     const companiesRepositories = getCustomRepository(CompaniesReposiroty);
     const companyExists = await companiesRepositories.findById(company_id);
-    const emailExists = await customersRepository.findByEmail(email);
+    const emailExistsInCompany =
+      await customersRepository.findEmailCustomerInCompany(company_id, email);
 
     if (!companyExists) {
       throw new AppError('Error: Company not found');
     }
-    if (emailExists) {
+    if (emailExistsInCompany) {
       throw new AppError('Email address already used.');
     }
 

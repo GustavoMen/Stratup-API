@@ -20,6 +20,20 @@ class CustomersReposiroty extends Repository<Customer> {
     return customer;
   }
 
+  public async findEmailCustomerInCompany(
+    id: string,
+    email: string,
+  ): Promise<Customer | undefined> {
+    const customer = await this.findOne({
+      where: {
+        company: id,
+        email,
+      },
+    });
+
+    return customer;
+  }
+
   public async findCustomersByIdCompany(id: string): Promise<Customer[]> {
     const customer = await this.find({
       where: { company: id },
